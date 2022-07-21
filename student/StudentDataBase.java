@@ -5,10 +5,12 @@ import java.time.Period;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class StudentDataBase {
-
+    static Predicate<Student> mail = (email) -> email.getEmail().contains("@gmail.com");
+    static Predicate<Student> str = (s) -> s.getName().startsWith("P");
     static int s1marks[]={80,80,80,80,80};
     public static Student student1=new Student(1,
             "Tushar Goyal",
@@ -25,14 +27,14 @@ public class StudentDataBase {
             s2marks);
     static int s3marks[]={65,72,80,81,89};
     public  static Student student3=new Student(3,
-            "Ayush Omer",
-            "ayush.omer@gmail.com",
+            "Paritosh Omer",
+            "ayush.omer@deloitte.com",
             LocalDate.of(1995,4,24),
             "Information Technology",
             s3marks);
     static int s4marks[]={90,90,90,85,85};
     public static Student student4=new Student(4,
-            "Shorya Talan",
+            "Prerna Talan",
             "Shoryatalan@gmail.com",
             LocalDate.of(1994,3,8),
             "CSE",
@@ -40,7 +42,7 @@ public class StudentDataBase {
     static int s5marks[]={81,89,80,75,77};
     public static Student student5=new Student(5,
             "Yash Raj Singh",
-            "YashSingh@gmail.com",
+            "YashSingh@deloitte.com",
             LocalDate.of(1990,11,20),
             "CSE",
             s5marks);
@@ -65,7 +67,24 @@ public class StudentDataBase {
         List<Student> ans4=samebranchwithagelessthan25(students,"CSE");
         System.out.println(ans4);
 
+        //Q5
+//        double ans5=averagemarks(students);
+//        System.out.println(ans5);
 
+        //Q6
+        students.forEach(student -> {
+            if(str.test(student)){
+                System.out.println(student);
+            }
+        });
+
+        //Q7
+
+        students.forEach(student -> {
+            if(mail.test(student)){
+                System.out.println(student);
+            }
+        });
 
 
     }
@@ -87,5 +106,9 @@ public class StudentDataBase {
         return students.stream().filter((student -> {return student.getBranch().equals("CSE") && Period.between(student.getDOB(),LocalDate.now()).getYears()<25;})).collect(Collectors.toList());
 
     }
+//
+//    public static double averagemarks(List<Student> students){
+//        return students.stream().map(averagemarks())
+//    }
 
 }
