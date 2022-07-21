@@ -5,6 +5,7 @@ import java.time.Period;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -68,8 +69,11 @@ public class StudentDataBase {
         System.out.println(ans4);
 
         //Q5
-//        double ans5=averagemarks(students);
-//        System.out.println(ans5);
+        students.forEach((s)->{
+            int[] marks=s.getMarks();
+            OptionalDouble avg= Arrays.stream(marks).asDoubleStream().average();
+            System.out.println(s.getName() +": "+avg.getAsDouble());
+        });
 
         //Q6
         students.forEach(student -> {
